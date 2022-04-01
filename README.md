@@ -5,7 +5,7 @@
 #### **`main.c`**
 
 ```c
-#include "arm_regression_error/arm_regression_error.h"
+#include "arm_regression_error/measure.h"
 
 #define BUF_SZ  (5)
 

@@ -1,5 +1,5 @@
 /*
- * arm_regression_error.h
+ * measure.h
  *
  *  Created on: Apr 1, 2022
  *      Author: pudja

@@ -1,11 +1,11 @@
 /*
- * arm_regression_error.c
+ * measure.c
  *
  *  Created on: Apr 1, 2022
  *      Author: pudja
  */
 
-#include "arm_regression_error.h"
+#include "measure.h"
 #include <math.h>
 
 /* Private macro */
