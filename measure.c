@@ -8,8 +8,10 @@
 #include "measure.h"
 #include <math.h>
 
-/* Private macro */
-#define IS_NAN(__X__) (((*(int*) (__X__)) == 0x7FC00000))
+static uint8_t is_nan(void *value)
+{
+  return (*(int*) value == 0x7FC00000);
+}
 
 /**
  * @brief Calculate Signal to Noise Ratio (SNR) of two array
@@ -27,11 +29,11 @@ float arm_snr_f32(float *pRef, float *pTest, uint32_t len)
   for (uint32_t i = 0; i < len; i++)
   {
     /* Checking for a NAN value in pRef array */
-    if (IS_NAN(&pRef[i]))
+    if (is_nan(&pRef[i]))
       return (0);
 
     /* Checking for a NAN value in pTest array */
-    if (IS_NAN(&pTest[i]))
+    if (is_nan(&pTest[i]))
       return (0);
 
     /* Sum of Energy Signal & Errors */
@@ -40,7 +42,7 @@ float arm_snr_f32(float *pRef, float *pTest, uint32_t len)
   }
 
   /* Checking for a NAN value in EnergyError */
-  if (IS_NAN(&EnergyError))
+  if (is_nan(&EnergyError))
     return (0);
 
   /* Convert to dB */
@@ -64,11 +66,11 @@ float arm_mse_f32(float *pRef, float *pTest, uint32_t len)
   for (uint32_t i = 0; i < len; i++)
   {
     /* Checking for a NAN value in pRef array */
-    if (IS_NAN(&pRef[i]))
+    if (is_nan(&pRef[i]))
       return (0);
 
     /* Checking for a NAN value in pTest array */
-    if (IS_NAN(&pTest[i]))
+    if (is_nan(&pTest[i]))
       return (0);
 
     /* Sum of square errors */
@@ -76,7 +78,7 @@ float arm_mse_f32(float *pRef, float *pTest, uint32_t len)
   }
 
   /* Checking for a NAN value in EnergyError */
-  if (IS_NAN(&EnergyError))
+  if (is_nan(&EnergyError))
     return (0);
 
   /* Average the errors */
@@ -101,7 +103,7 @@ float arm_rmse_f32(float *pRef, float *pTest, uint32_t len)
   MSE = arm_mse_f32(pRef, pTest, len);
 
   /* Checking for a NAN value */
-  if (IS_NAN(&MSE))
+  if (is_nan(&MSE))
     return (0);
 
   /* Square root */
@@ -126,11 +128,11 @@ float arm_mae_f32(float *pRef, float *pTest, uint32_t len)
   for (uint32_t i = 0; i < len; i++)
   {
     /* Checking for a NAN value in pRef array */
-    if (IS_NAN(&pRef[i]))
+    if (is_nan(&pRef[i]))
       return (0);
 
     /* Checking for a NAN value in pTest array */
-    if (IS_NAN(&pTest[i]))
+    if (is_nan(&pTest[i]))
       return (0);
 
     /* Sum of absolute errors */
@@ -138,7 +140,7 @@ float arm_mae_f32(float *pRef, float *pTest, uint32_t len)
   }
 
   /* Checking for a NAN value in EnergyError */
-  if (IS_NAN(&EnergyError))
+  if (is_nan(&EnergyError))
     return (0);
 
   /* Average the errors */
@@ -172,11 +174,11 @@ float arm_rsquare_f32(float *pRef, float *pTest, uint32_t len)
   for (uint32_t i = 0; i < len; i++)
   {
     /* Checking for a NAN value in pRef array */
-    if (IS_NAN(&pRef[i]))
+    if (is_nan(&pRef[i]))
       return (0);
 
     /* Checking for a NAN value in pTest array */
-    if (IS_NAN(&pTest[i]))
+    if (is_nan(&pTest[i]))
       return (0);
 
     /* Sum of squares */
@@ -185,11 +187,11 @@ float arm_rsquare_f32(float *pRef, float *pTest, uint32_t len)
   }
 
   /* Checking for a NAN value in Sum of Squares of Residuals */
-  if (IS_NAN(&RSS))
+  if (is_nan(&RSS))
     return (0);
 
   /* Checking for a NAN value in Total Sum of Squares */
-  if (IS_NAN(&TSS))
+  if (is_nan(&TSS))
     return (0);
 
   /* Calculate R-Square */
