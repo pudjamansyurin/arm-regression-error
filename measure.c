@@ -14,6 +14,20 @@ static uint8_t is_nan(void *value)
 }
 
 /**
+ * @brief Convert S16 to F32 format
+ * @param s16p_src Pointer to S16 data
+ * @param f32p_dst Pointer to F32 data
+ * @param u16_len Data length
+ */
+void arm_s16_to_f32(const int16_t *s16p_src, float *f32p_dst, uint16_t u16_len)
+{
+  for (uint16_t u16_i = 0; u16_i < u16_len; u16_i++)
+  {
+    f32p_dst[u16_i] = (float) s16p_src[u16_i];
+  }
+}
+
+/**
  * @brief Calculate Signal to Noise Ratio (SNR) of two array
  * @param pRef Pointer to reference buffer
  * @param pTest Pointer to test buffer
