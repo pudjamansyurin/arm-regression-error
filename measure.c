@@ -8,11 +8,13 @@
 #include "measure.h"
 #include <math.h>
 
+/* Private function definitions */
 static uint8_t is_nan(void *value)
 {
   return (*(int*) value == 0x7FC00000);
 }
 
+/* Public function definitions */
 /**
  * @brief Convert S16 to F32 format
  * @param s16p_src Pointer to S16 data
