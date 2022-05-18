@@ -8,11 +8,8 @@
 #include "measure.h"
 #include <math.h>
 
-/* Private function definitions */
-static uint8_t is_nan(void *value)
-{
-  return (*(int*) value == 0x7FC00000);
-}
+/* Private function declarations */
+static uint8_t is_nan(void *value);
 
 /* Public function definitions */
 /**
@@ -23,7 +20,9 @@ static uint8_t is_nan(void *value)
  */
 void arm_s16_to_f32(const int16_t *s16p_src, float *f32p_dst, uint16_t u16_len)
 {
-  for (uint16_t u16_i = 0; u16_i < u16_len; u16_i++)
+  uint16_t u16_i;
+
+  for (u16_i = 0; u16_i < u16_len; u16_i++)
   {
     f32p_dst[u16_i] = (float) s16p_src[u16_i];
   }
@@ -41,8 +40,9 @@ float arm_snr_f32(float *pRef, float *pTest, uint32_t len)
   float EnergySignal = 0.0;
   float EnergyError = 0.0;
   float SNR;
+  uint32_t i;
 
-  for (uint32_t i = 0; i < len; i++)
+  for (i = 0; i < len; i++)
   {
     /* Checking for a NAN value in pRef array */
     if (is_nan(&pRef[i]))
@@ -78,8 +78,9 @@ float arm_mse_f32(float *pRef, float *pTest, uint32_t len)
 {
   float EnergyError = 0.0;
   float MSE;
+  uint32_t i;
 
-  for (uint32_t i = 0; i < len; i++)
+  for (i = 0; i < len; i++)
   {
     /* Checking for a NAN value in pRef array */
     if (is_nan(&pRef[i]))
@@ -140,8 +141,9 @@ float arm_mae_f32(float *pRef, float *pTest, uint32_t len)
 {
   float EnergyError = 0.0;
   float MAE;
+  uint32_t i;
 
-  for (uint32_t i = 0; i < len; i++)
+  for (i = 0; i < len; i++)
   {
     /* Checking for a NAN value in pRef array */
     if (is_nan(&pRef[i]))
@@ -179,15 +181,16 @@ float arm_rsquare_f32(float *pRef, float *pTest, uint32_t len)
   float TSS = 0.0;
   float mean = 0.0;
   float R2;
+  uint32_t i;
 
   /* Find reference signal mean */
-  for (uint32_t i = 0; i < len; i++)
+  for (i = 0; i < len; i++)
   {
     mean += pRef[i];
   }
   mean /= len;
 
-  for (uint32_t i = 0; i < len; i++)
+  for (i = 0; i < len; i++)
   {
     /* Checking for a NAN value in pRef array */
     if (is_nan(&pRef[i]))
@@ -214,4 +217,10 @@ float arm_rsquare_f32(float *pRef, float *pTest, uint32_t len)
   R2 = 1.0f - (RSS / TSS);
 
   return (R2);
+}
+
+/* Private function definitions */
+static uint8_t is_nan(void *value)
+{
+  return (*(int*) value == 0x7FC00000);
 }
