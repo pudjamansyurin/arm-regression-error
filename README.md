@@ -18,19 +18,19 @@ int main(void)
   /* Super loop */
   while(1) {
     /* Calculate SNR (in dB) */
-    value = arm_snr_f32(pReff, pTest, BUF_SZ);
+    value = regr_snr_f32(pReff, pTest, BUF_SZ);
 
     /* Calculate MSE */
-    value = arm_mse_f32(pReff, pTest, BUF_SZ);
+    value = regr_mse_f32(pReff, pTest, BUF_SZ);
 
     /* Calculate RMSE */
-    value = arm_rmse_f32(pReff, pTest, BUF_SZ);
+    value = regr_rmse_f32(pReff, pTest, BUF_SZ);
     
     /* Calculate MAE */
-    value = arm_mae_f32(pReff, pTest, BUF_SZ);
+    value = regr_mae_f32(pReff, pTest, BUF_SZ);
 
     /* Calculate R-Square */
-    value = arm_rsquare_f32(pReff, pTest, BUF_SZ);
+    value = regr_rsquare_f32(pReff, pTest, BUF_SZ);
   }
 }
 ```
